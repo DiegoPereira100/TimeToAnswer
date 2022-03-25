@@ -12,7 +12,7 @@
         <th>#</th>
         <th>Email</th>
         <th>
-          <%= link_to new_admins_backoffice_admin_path, class:"btn btn-sucess btn-circle" do %>
+          <%= link_to new_admins_backoffice_admin_path, class:"btn btn-success btn-circle" do %>
             <i class="fa fa-plus"></i>
             <% end %>
         </th>
@@ -42,5 +42,8 @@
         <% end %>
     </tbody>
   </table>
+  <div class="text-center">
+    <%= paginate @admins %>
+  </div>
 </div>
 <!-- /.table-responsive -->
