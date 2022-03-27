@@ -58,18 +58,18 @@ end
     end
   end
   
-   desc "Adiciona perguntas e respostas"
-  task add_subjects: :environment do
+ desc "Adiciona questões e respostas"
+ task add_answers_and_questions: :environment do
     Subject.all.each do |subject|
-      rand(5..10).times do |i|
-        Question.create!(
-          description: "#{Fake::Lorem.paragraph} #{Faker::Lorem.question}",
-          subject: subject
-        )
+    rand(5..10).times do |i|
+    Question.create!(
+      description: "#{Faker::Lorem.paragraph} #{Faker::Lorem.question}",
+        subject: subject
+      )
     end
   end
-end
-
+ end
+ 
 private
 
 def show_spinner(msg_start, msg_end = "Concluído")
