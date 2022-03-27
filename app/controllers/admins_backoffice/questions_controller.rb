@@ -1,5 +1,6 @@
 class AdminsBackoffice::QuestionsController < ApplicationController
     before_action :set_question, only: [:edit, :update, :destroy]
+    before_action :get_subjects, only: [:new, :edit]
  def index
  @questions =
 Question.all.order(:description).page(params[:page])
@@ -8,6 +9,7 @@ Question.all.order(:description).page(params[:page])
  @question = Question.new
  end
  def create
+     
  @question = Question.new(params_question)
  if @question.save
  redirect_to admins_backoffice_question_path, notice: "Questão
@@ -27,6 +29,7 @@ atualizada com sucesso!"
  render :edit
  end
  end
+ 
  def destroy
  if @question.destroy
  redirect_to admins_backoffice_question_path, notice: "Questão
@@ -43,5 +46,9 @@ excluída com sucesso!"
  end
  def set_question
  @question = Question.find(params[:id])
+ end
+ 
+ def get_subjects
+     @subjects = Subject.all
  end
 end
