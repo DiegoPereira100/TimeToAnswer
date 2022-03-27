@@ -2,7 +2,11 @@ class AdminsBackoffice::SubjectsController < AdminsBackofficeController
   before_action :set_subject, only: [:edit, :update, :destroy]
 
   def index
-    @subjects = Subject.all.page(params[:page])
+    respond_to do |format|
+      format.html {  @subjects = Subject.all.order(:description).page(params[:page]) }
+      format.pdf {  @subjects = Subject.all.order(:description) }
+      format.json { render json: (@subjects = Subject.all.order(:description))}
+    end
   end
 
   def new
@@ -12,30 +16,31 @@ class AdminsBackoffice::SubjectsController < AdminsBackofficeController
   def create
     @subject = Subject.new(params_subject)
     if @subject.save
-      redirect_to admins_backoffice_subjects_path, notice: "Administrador cadastrado com sucesso!"
+      redirect_to admins_backoffice_subjects_path, notice:  "Assunto/Área Criado com Sucesso"
     else
       render :new
     end
   end
-
+  
   def edit
   end
 
   def update
     if @subject.update(params_subject)
-      redirect_to admins_backoffice_subjects_path, notice:"Administrador atualizado com sucesso!"
-    else
+      redirect_to admins_backoffice_subjects_path, notice: "Assunto/Área Atualizado Com Sucesso"
+      else
       render :edit
     end
   end
 
   def destroy
     if @subject.destroy
-      redirect_to admins_backoffice_subjects_path, notice:"Administrador excluido com sucesso!"
+      redirect_to admins_backoffice_subjects_path, notice: "Assunto/Área Excluído com Sucesso"
     else
-      render :index
+     render :index
     end
   end
+  
 
   private
 
@@ -44,6 +49,6 @@ class AdminsBackoffice::SubjectsController < AdminsBackofficeController
   end
 
   def set_subject
-    @subject = Admin.find(params[:id])
+     @subject = Subject.find(params[:id])    
   end
 end
