@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   end
   devise_for :users
   devise_for :admins, :skip => [:registrations]
+  get 'backoffice', to: 'admins_backoffice/welcome#index'
 
   get 'inicio', to: 'site/welcome#index'
 
