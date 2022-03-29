@@ -1,6 +1,11 @@
 class ApplicationController < ActionController::Base
   # Set Layout
 layout :layout_by_resource
+before_action :set_global_params
+
+def set_global_params
+  $global_params = params
+end
 
   protected
 
