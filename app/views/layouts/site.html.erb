@@ -44,7 +44,7 @@
                   <li>
                     <%= link_to 'Cadastrar-se' , new_user_registration_path %>
                   </li>
-                  <% else%>
+                  <% else %>
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                         aria-expanded="false">
@@ -69,20 +69,12 @@
         </div>
       </div>
     </nav>
-    <div class="jumbotron">
-      <% unless params[:term] %>
-        <h3>Últimas perguntas cadastradas...</h3>
-        <% else %>
-          <h3>
-            <%= "Resultados para \" #{params[:term]}\"..."%>
-          </h3>
-          <% end %>
-    </div>
+    
 
     <%= yield %>
   </div>
 
-  <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'application' %>
     <%= javascript_include_tag 'site' %>
 
       <% if notice %>

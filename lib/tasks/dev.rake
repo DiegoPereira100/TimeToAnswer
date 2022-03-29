@@ -14,6 +14,7 @@ namespace :dev do
       show_spinner("Cadastrando Usuário padrão ... ") { %x(rails dev:add_default_user) }
       show_spinner("Cadastrando assuntos padrões...") { %x(rails dev:add_subjects) }
       show_spinner("Cadastrando perguntas e respostas...") { %x(rails dev:add_answers_and_questions) }
+      show_spinner("Resetando o contador dos assuntos...") { %x(rails dev:reset_subject_counter) }
     else
       puts "Você não esta em ambiente de desenvolvimento!"
   end
@@ -72,6 +73,16 @@ end
       end
     end
   end
+  
+  desc "Reseta o contador dos assuntos"
+   task reset_subject_counter: :environment do
+    show_spinner("Resetando contador dos assuntos...") do
+     Subject.find_each do |subject|
+     Subject.reset_counters(subject.id, :questions)
+    end
+  end
+end
+
  
 private
 

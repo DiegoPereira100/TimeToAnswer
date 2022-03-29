@@ -2,9 +2,13 @@ Rails.application.routes.draw do
   namespace :site do
     get 'welcome/index'
     get 'search', to: 'search#questions'
+    get 'search_subject/:subject_id/:subject', to: 'search#subject', as: 'search_subject'
+    post 'answer', to: 'answer#question'
   end
   namespace :users_backoffice do
     get 'welcome/index'
+    get 'profile', to: 'profile#edit'
+    patch 'profile', to: 'profile#update'
   end
   namespace :admins_backoffice do
     get 'welcome/index'
@@ -13,7 +17,7 @@ Rails.application.routes.draw do
     resources :questions
   end
   devise_for :users
-  devise_for :admins
+  devise_for :admins, :skip => [:registrations]
 
   get 'inicio', to: 'site/welcome#index'
 
