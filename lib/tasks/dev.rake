@@ -15,6 +15,7 @@ namespace :dev do
       show_spinner("Cadastrando assuntos padrões...") { %x(rails dev:add_subjects) }
       show_spinner("Cadastrando perguntas e respostas...") { %x(rails dev:add_answers_and_questions) }
       show_spinner("Resetando o contador dos assuntos...") { %x(rails dev:reset_subject_counter) }
+      show_spinner("Resetando o contador dos assuntos...") { %x(rails dev:add_answers_to_redis) }
     else
       puts "Você não esta em ambiente de desenvolvimento!"
   end
@@ -79,6 +80,16 @@ end
     show_spinner("Resetando contador dos assuntos...") do
      Subject.find_each do |subject|
      Subject.reset_counters(subject.id, :questions)
+    end
+  end
+end
+
+desc "Adiciona todas as respostas no Redis"
+  task add_answers_to_redis: :environment do
+    show_spinner("Adiciona todas as respostas no Redis") do
+    Answer.find_each do |answer|
+    Rails.cache.write(answer.id,
+    "#{answer.question_id}@@#{answer.correct}")
     end
   end
 end
