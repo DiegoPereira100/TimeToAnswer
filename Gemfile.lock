@@ -91,6 +91,7 @@ GEM
     ffi (1.15.5)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    hiredis (0.6.3)
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
     io-like (0.3.1)
@@ -131,6 +132,16 @@ GEM
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
+    pdf-core (0.7.0)
+    prawn (2.2.2)
+      pdf-core (~> 0.7.0)
+      ttfunk (~> 1.5)
+    prawn-rails (1.4.2)
+      actionview (>= 3.1.0)
+      prawn
+      prawn-table
+    prawn-table (0.2.2)
+      prawn (>= 1.3.0, < 3.0.0)
     public_suffix (4.0.6)
     puma (3.12.6)
     rack (2.2.3)
@@ -167,6 +178,7 @@ GEM
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    redis (4.6.0)
     regexp_parser (1.8.2)
     responders (3.0.1)
       actionpack (>= 5.0)
@@ -202,6 +214,7 @@ GEM
     thor (1.2.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
+    ttfunk (1.6.2.1)
     tty-cursor (0.7.1)
     tty-spinner (0.9.3)
       tty-cursor (~> 0.7)
@@ -236,13 +249,16 @@ DEPENDENCIES
   devise
   devise-i18n
   faker
+  hiredis
   jbuilder (~> 2.5)
   kaminari
   kaminari-i18n
   listen (>= 3.0.5, < 3.2)
+  prawn-rails
   puma (~> 3.11)
   rails (~> 5.2.6, >= 5.2.6.3)
   rails-i18n (~> 5.1)
+  redis
   sass-rails (~> 5.0)
   selenium-webdriver
   spring

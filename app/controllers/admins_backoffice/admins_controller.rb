@@ -13,30 +13,33 @@ class AdminsBackoffice::AdminsController < AdminsBackofficeController
   def create
     @admin = Admin.new(params_admin)
     if @admin.save
-      redirect_to admins_backoffice_admins_path, notice: "Administrador cadastrado com sucesso!"
+      redirect_to admins_backoffice_admins_path, notice:  "Administrador Criado com Sucesso"
     else
       render :new
     end
   end
+  
 
   def edit
   end
-  
-  if @admin.update(params_admin)
+
+  def update
+    if @admin.update(params_admin)
       AdminMailer.update_email(current_admin, @admin).deliver_now
-      redirect_to admins_backoffice_admins_path, notice: "Administrador
-      atualizado com sucesso!"
-    else
+      redirect_to admins_backoffice_admins_path, notice: "Administrador Atualizado Com Sucesso"
+      else
       render :edit
+    end
   end
 
   def destroy
     if @admin.destroy
-      redirect_to admins_backoffice_admins_path, notice:"Administrador excluido com sucesso!"
+      redirect_to admins_backoffice_admins_path, notice: "Administrador Excluído com Sucesso"
     else
-      render :index
+     render :index
     end
   end
+  
 
   private
 
@@ -45,12 +48,13 @@ class AdminsBackoffice::AdminsController < AdminsBackofficeController
   end
 
   def set_admin
-    @admin = Admin.find(params[:id])
+     @admin = Admin.find(params[:id])    
   end
 
   def verify_password
-  if params[:admin][:password].blank? && params[:admin][:password_confirmation].blank?
-    params[:admin].extract!(:password, :password_confirmation)
+    if params[:admin][:password].blank? &&  params[:admin][:password_confirmation].blank?
+      params[:admin].extract!(:password, :password_confirmation)
     end
   end
+
 end
